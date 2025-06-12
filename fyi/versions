@@ -1,0 +1,30 @@
+File: semgrep-grammars/src/tree-sitter-json/LICENSE
+Git repo name: tree-sitter-json
+Latest commit in repo: 46aa487b3ade14b7b05ef92507fdaa3915a662a3
+Last change in file:
+  commit 6f06431d1cb45a7bfffce5e63b11e61c8da8eb79
+  Author: Max Brunsfeld <maxbrunsfeld@gmail.com>
+  Date:   Thu Jan 14 15:01:37 2016 -0800
+  
+      Add README and LICENSE
+---
+File: semgrep-grammars/src/tree-sitter-json/grammar.js
+Git repo name: tree-sitter-json
+Latest commit in repo: 46aa487b3ade14b7b05ef92507fdaa3915a662a3
+Last change in file:
+  commit b8d881b4699dbe2e8b88d88864e7b220b9631a55
+  Author: Amaan Qureshi <amaanq12@gmail.com>
+  Date:   Sat Oct 19 13:45:58 2024 -0400
+  
+      build: update bindings
+---
+File: semgrep-grammars/src/semgrep-json/grammar.js
+Git repo name: ocaml-tree-sitter-semgrep
+Latest commit in repo: 079c2f78085d04d5384f4f1505a3fce029d4870a
+Last change in file:
+  commit 079c2f78085d04d5384f4f1505a3fce029d4870a
+  Author: brandonspark <wu.brandonj@gmail.com>
+  Date:   Thu Jun 12 14:48:31 2025 -0700
+  
+      add some tests
+---
