@@ -86,6 +86,14 @@ let children_regexps : (string * Run.exp option) list = [
       Token (Literal "]");
     ];
   );
+  "deep_ellipsis",
+  Some (
+    Seq [
+      Token (Literal "<...");
+      Token (Name "value");
+      Token (Literal "...>");
+    ];
+  );
   "object",
   Some (
     Seq [
@@ -133,6 +141,7 @@ let children_regexps : (string * Run.exp option) list = [
         Token (Name "null");
       |];
       Token (Name "semgrep_ellipsis");
+      Token (Name "deep_ellipsis");
     |];
   );
   "document",
@@ -303,6 +312,20 @@ let rec trans_array_ ((kind, body) : mt) : CST.array_ =
       )
   | Leaf _ -> assert false
 
+and trans_deep_ellipsis ((kind, body) : mt) : CST.deep_ellipsis =
+  match body with
+  | Children v ->
+      (match v with
+      | Seq [v0; v1; v2] ->
+          (
+            Run.trans_token (Run.matcher_token v0),
+            trans_value (Run.matcher_token v1),
+            Run.trans_token (Run.matcher_token v2)
+          )
+      | _ -> assert false
+      )
+  | Leaf _ -> assert false
+
 and trans_object_ ((kind, body) : mt) : CST.object_ =
   match body with
   | Children v ->
@@ -413,6 +436,10 @@ and trans_value ((kind, body) : mt) : CST.value =
       | Alt (1, v) ->
           `Semg_ellips (
             trans_semgrep_ellipsis (Run.matcher_token v)
+          )
+      | Alt (2, v) ->
+          `Deep_ellips (
+            trans_deep_ellipsis (Run.matcher_token v)
           )
       | _ -> assert false
       )

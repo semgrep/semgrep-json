@@ -161,6 +161,12 @@ and map_value (env : env) (x : CST.value) =
   | `Semg_ellips tok -> R.Case ("Semg_ellips",
       (* "..." *) token env tok
     )
+  | `Deep_ellips (v1, v2, v3) -> R.Case ("Deep_ellips",
+      let v1 = (* "<..." *) token env v1 in
+      let v2 = map_value env v2 in
+      let v3 = (* "...>" *) token env v3 in
+      R.Tuple [v1; v2; v3]
+    )
   )
 
 let map_document (env : env) (x : CST.document) =

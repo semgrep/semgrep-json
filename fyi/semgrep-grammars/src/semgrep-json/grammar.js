@@ -38,6 +38,8 @@ module.exports = grammar(base_grammar, {
       return token(seq(alpha, repeat(alphanumeric)))
     },
 
+    deep_ellipsis: ($) => seq("<...", $._value, "...>"),
+
     string: ($, previous) => choice(
       previous,
       $.semgrep_metavariable,
@@ -47,6 +49,7 @@ module.exports = grammar(base_grammar, {
     _value: ($, previous) => prec(1, choice(
       previous,
       $.semgrep_ellipsis,
+      $.deep_ellipsis,
     )),
 
     pair: ($, previous) => choice(

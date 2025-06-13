@@ -65,6 +65,7 @@ and value = [
       | `Null of Token.t (* "null" *)
     ]
   | `Semg_ellips of Token.t (* "..." *)
+  | `Deep_ellips of (Token.t (* "<..." *) * value * Token.t (* "...>" *))
 ]
 
 type document = [
@@ -81,6 +82,10 @@ type comment (* inlined *) = Token.t
 type true_ (* inlined *) = Token.t (* "true" *)
 
 type null (* inlined *) = Token.t (* "null" *)
+
+type deep_ellipsis (* inlined *) = (
+    Token.t (* "<..." *) * value * Token.t (* "...>" *)
+)
 
 type extra = [ `Comment of Loc.t * comment ]
 

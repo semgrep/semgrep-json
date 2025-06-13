@@ -20,11 +20,11 @@ Last change in file:
 ---
 File: semgrep-grammars/src/semgrep-json/grammar.js
 Git repo name: ocaml-tree-sitter-semgrep
-Latest commit in repo: 78796718c2f235df7e620bc94e98a048d3007317
+Latest commit in repo: 7fd72ef6d1a277dcbcbb0430caf94470d4a465e8
 Last change in file:
-  commit 78796718c2f235df7e620bc94e98a048d3007317
+  commit 7fd72ef6d1a277dcbcbb0430caf94470d4a465e8
   Author: brandonspark <wu.brandonj@gmail.com>
-  Date:   Thu Jun 12 17:08:35 2025 -0700
+  Date:   Thu Jun 12 18:05:28 2025 -0700
   
-      allow ident as lhs to pair
+      add deep ellipsis
 ---
