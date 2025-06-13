@@ -8,11 +8,13 @@
 open! Sexplib.Conv
 open Tree_sitter_run
 
-type semgrep_metavariable = Token.t
+type string_content_ = Token.t (* pattern "[^\\\\\"\\n]+" *)
 
 type escape_sequence = Token.t
 
-type string_content_ = Token.t (* pattern "[^\\\\\"\\n]+" *)
+type semgrep_metavariable = Token.t
+
+type identifier = Token.t
 
 type number = Token.t
 
@@ -31,6 +33,7 @@ type string_ = [
         )
     ]
   | `Semg_meta of semgrep_metavariable (*tok*)
+  | `Id of identifier (*tok*)
 ]
 
 type array_ = (
@@ -71,13 +74,13 @@ type document = [
 
 type false_ (* inlined *) = Token.t (* "false" *)
 
-type true_ (* inlined *) = Token.t (* "true" *)
+type semgrep_ellipsis (* inlined *) = Token.t (* "..." *)
 
 type comment (* inlined *) = Token.t
 
-type null (* inlined *) = Token.t (* "null" *)
+type true_ (* inlined *) = Token.t (* "true" *)
 
-type semgrep_ellipsis (* inlined *) = Token.t (* "..." *)
+type null (* inlined *) = Token.t (* "null" *)
 
 type extra = [ `Comment of Loc.t * comment ]
 

@@ -19,14 +19,17 @@ let token (env : env) (tok : Tree_sitter_run.Token.t) =
 let blank (env : env) () =
   R.Tuple []
 
-let map_semgrep_metavariable (env : env) (tok : CST.semgrep_metavariable) =
-  (* semgrep_metavariable *) token env tok
+let map_string_content_ (env : env) (tok : CST.string_content_) =
+  (* pattern "[^\\\\\"\\n]+" *) token env tok
 
 let map_escape_sequence (env : env) (tok : CST.escape_sequence) =
   (* escape_sequence *) token env tok
 
-let map_string_content_ (env : env) (tok : CST.string_content_) =
-  (* pattern "[^\\\\\"\\n]+" *) token env tok
+let map_semgrep_metavariable (env : env) (tok : CST.semgrep_metavariable) =
+  (* semgrep_metavariable *) token env tok
+
+let map_identifier (env : env) (tok : CST.identifier) =
+  (* identifier *) token env tok
 
 let map_number (env : env) (tok : CST.number) =
   (* number *) token env tok
@@ -62,6 +65,9 @@ let map_string_ (env : env) (x : CST.string_) =
     )
   | `Semg_meta tok -> R.Case ("Semg_meta",
       (* semgrep_metavariable *) token env tok
+    )
+  | `Id tok -> R.Case ("Id",
+      (* identifier *) token env tok
     )
   )
 

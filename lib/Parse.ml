@@ -32,14 +32,15 @@ let extras = [
 
 let children_regexps : (string * Run.exp option) list = [
   "false", None;
-  "true", None;
-  "semgrep_metavariable", None;
+  "string_content_", None;
+  "semgrep_ellipsis", None;
   "comment", None;
   "escape_sequence", None;
-  "string_content_", None;
-  "number", None;
+  "semgrep_metavariable", None;
+  "true", None;
   "null", None;
-  "semgrep_ellipsis", None;
+  "identifier", None;
+  "number", None;
   "string_content",
   Some (
     Repeat1 (
@@ -64,6 +65,7 @@ let children_regexps : (string * Run.exp option) list = [
         ];
       |];
       Token (Name "semgrep_metavariable");
+      Token (Name "identifier");
     |];
   );
   "array",
@@ -154,12 +156,12 @@ let trans_false_ ((kind, body) : mt) : CST.false_ =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_true_ ((kind, body) : mt) : CST.true_ =
+let trans_string_content_ ((kind, body) : mt) : CST.string_content_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_semgrep_metavariable ((kind, body) : mt) : CST.semgrep_metavariable =
+let trans_semgrep_ellipsis ((kind, body) : mt) : CST.semgrep_ellipsis =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -174,12 +176,12 @@ let trans_escape_sequence ((kind, body) : mt) : CST.escape_sequence =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_string_content_ ((kind, body) : mt) : CST.string_content_ =
+let trans_semgrep_metavariable ((kind, body) : mt) : CST.semgrep_metavariable =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_number ((kind, body) : mt) : CST.number =
+let trans_true_ ((kind, body) : mt) : CST.true_ =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -189,7 +191,12 @@ let trans_null ((kind, body) : mt) : CST.null =
   | Leaf v -> v
   | Children _ -> assert false
 
-let trans_semgrep_ellipsis ((kind, body) : mt) : CST.semgrep_ellipsis =
+let trans_identifier ((kind, body) : mt) : CST.identifier =
+  match body with
+  | Leaf v -> v
+  | Children _ -> assert false
+
+let trans_number ((kind, body) : mt) : CST.number =
   match body with
   | Leaf v -> v
   | Children _ -> assert false
@@ -250,6 +257,10 @@ let trans_string_ ((kind, body) : mt) : CST.string_ =
       | Alt (1, v) ->
           `Semg_meta (
             trans_semgrep_metavariable (Run.matcher_token v)
+          )
+      | Alt (2, v) ->
+          `Id (
+            trans_identifier (Run.matcher_token v)
           )
       | _ -> assert false
       )
